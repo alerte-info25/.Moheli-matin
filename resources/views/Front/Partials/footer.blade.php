@@ -70,7 +70,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 MOHELI MATIN - Journal en ligne de Mohéli. développé par <a href="https://www.alerte-info.net/">ALERTE INFO</a> Tous droits réservés.</p>
+            <p>&copy; 2025 MOHELI MATIN - Journal en ligne de Mohéli. développé par <a href="https://www.alerte-info.net/" style="color: #fff; text-decoration: none">ALERTE INFO</a> Tous droits réservés.</p>
         </div>
     </div>
 </footer>

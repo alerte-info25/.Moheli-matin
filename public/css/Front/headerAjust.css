@@ -1,0 +1,51 @@
+.main-nav {
+    display: flex;
+    gap: 2rem;
+    margin-left: 2rem;
+}
+
+.nav-link {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--yellow);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--red);
+}
+
+/* Responsive adjustments for new elements */
+@media (max-width: 992px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .hero-slider {
+        height: 400px;
+    }
+    
+    .slide-title {
+        font-size: 1.5rem;
+    }
+}

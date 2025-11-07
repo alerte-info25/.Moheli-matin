@@ -50,22 +50,32 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Sidebar Navigation
-const menuToggle = document.getElementById('menuToggle');
+// Sidebar functionality
+const menuToggles = document.querySelectorAll('.menuToggle');
+const closeSidebarBtns = document.querySelectorAll('.closeSidebar');
 const sidebar = document.getElementById('sidebar');
-const closeSidebar = document.getElementById('closeSidebar');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-menuToggle.addEventListener('click', function() {
+function openSidebar() {
     sidebar.classList.add('active');
     sidebarOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-});
+}
 
-closeSidebar.addEventListener('click', function() {
+function closeSidebarFunc() {
     sidebar.classList.remove('active');
     sidebarOverlay.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// Ajouter l'événement à tous les boutons toggle
+menuToggles.forEach(btn => {
+    btn.addEventListener('click', openSidebar);
+});
+
+// Ajouter l'événement à tous les boutons de fermeture
+closeSidebarBtns.forEach(btn => {
+    btn.addEventListener('click', closeSidebarFunc);
 });
 
 sidebarOverlay.addEventListener('click', function() {

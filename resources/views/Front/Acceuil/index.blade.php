@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{{ asset("css/Front/acceuil.css") }}">
 </head>
 <body>
-
+    
+    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
             <div class="loading-logo">
@@ -36,7 +37,7 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Hero Section -->
+        <!-- Hero Section avec Slider -->
         <section class="hero-section">
             <div class="container">
                 <div class="hero-container">
@@ -69,48 +70,63 @@
                         </div>
                     </div>
 
-                    <div class="hero-image">
-                        <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Actualité Mohéli">
-                        <div class="image-overlay">
-                            <h3>Inauguration du nouveau port de Fomboni</h3>
-                            <p>Le président en visite officielle pour l'ouverture des nouvelles installations portuaires</p>
+                    <!-- Slider Hero avec 3 articles - SECTION ÉLARGIE -->
+                    <div class="hero-slider" id="heroSlider">
+                        <!-- Slide 1 -->
+                        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')">
+                            <div class="slide-content">
+                                <span class="slide-category">POLITIQUE</span>
+                                <h3 class="slide-title">Le Président annonce un nouveau plan de développement pour Mohéli</h3>
+                                <p class="slide-excerpt">Le chef de l'État a présenté hier un ambitieux plan quinquennal visant à renforcer les infrastructures et stimuler l'économie locale.</p>
+                                <a href="#" class="news-read-more">
+                                    Lire l'article
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-newspaper"></i>
+                        
+                        <!-- Slide 2 -->
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')">
+                            <div class="slide-content">
+                                <span class="slide-category">ÉCONOMIE</span>
+                                <h3 class="slide-title">Lancement d'un nouveau programme d'aide aux entrepreneurs locaux</h3>
+                                <p class="slide-excerpt">Le gouvernement débloque 5 millions d'euros pour soutenir les petites et moyennes entreprises comoriennes dans leur développement.</p>
+                                <a href="#" class="news-read-more">
+                                    Lire l'article
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="stat-number" data-target="2500">0</div>
-                        <div class="stat-label">Articles publiés</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
+                        
+                        <!-- Slide 3 -->
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')">
+                            <div class="slide-content">
+                                <span class="slide-category">ÉDUCATION</span>
+                                <h3 class="slide-title">Inauguration du nouveau campus universitaire de Fomboni</h3>
+                                <p class="slide-excerpt">Un établissement moderne équipé des dernières technologies éducatives ouvrira ses portes aux étudiants dès le semestre prochain.</p>
+                                <a href="#" class="news-read-more">
+                                    Lire l'article
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="stat-number" data-target="15000">0</div>
-                        <div class="stat-label">Lecteurs quotidiens</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-pen"></i>
+                        
+                        <!-- Contrôles du slider -->
+                        <div class="slider-nav">
+                            <button class="slider-arrow prev-slide">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="slider-arrow next-slide">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
-                        <div class="stat-number" data-target="25">0</div>
-                        <div class="stat-label">Journalistes</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-award"></i>
+                        
+                        <!-- Indicateurs de slide -->
+                        <div class="slider-controls">
+                            <button class="slider-btn active" data-slide="0"></button>
+                            <button class="slider-btn" data-slide="1"></button>
+                            <button class="slider-btn" data-slide="2"></button>
                         </div>
-                        <div class="stat-number" data-target="8">0</div>
-                        <div class="stat-label">Prix remportés</div>
                     </div>
                 </div>
             </div>
@@ -299,59 +315,71 @@
             </div>
         </section>
 
-        <!-- Featured News -->
-        <section class="featured-section">
+        <!-- Videos Section -->
+        <section class="videos-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">À la Une</h2>
+                    <h2 class="section-title">Vidéos à la Une</h2>
                     <a href="#" class="view-all">
-                        Voir tout
+                        Voir toutes les vidéos
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
 
-                <div class="featured-grid">
-                    <div class="main-featured">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Article principal">
-                        <div class="main-featured-content">
-                            <span class="main-featured-category">ÉCONOMIE</span>
-                            <h3 class="main-featured-title">Nouveau plan de développement pour l'île de Mohéli</h3>
-                            <p class="main-featured-excerpt">Le gouvernement dévoile un ambitieux programme d'investissement de 50 millions d'euros pour les infrastructures de l'île.</p>
-                            <a href="#" class="news-read-more">
-                                Lire l'article
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                <div class="videos-grid">
+                    <!-- Video 1 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Vidéo">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">12:45</div>
+                        </div>
+                        <div class="video-content">
+                            <div class="video-category">ACTUALITÉ</div>
+                            <h3 class="video-title">Reportage exclusif : La vie quotidienne à Fomboni</h3>
+                            <div class="video-meta">
+                                <span><i class="far fa-eye"></i> 24K vues</span>
+                                <span><i class="far fa-calendar"></i> 15 Nov</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="side-featured">
-                        <div class="side-featured-item">
-                            <div class="side-featured-image">
-                                <img src="https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Article secondaire">
+                    <!-- Video 2 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Vidéo">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
                             </div>
-                            <div class="side-featured-content">
-                                <div class="side-featured-category">ÉDUCATION</div>
-                                <h4 class="side-featured-title">Ouverture du nouveau lycée technique de Nioumachoua</h4>
+                            <div class="video-duration">08:32</div>
+                        </div>
+                        <div class="video-content">
+                            <div class="video-category">CULTURE</div>
+                            <h3 class="video-title">Festival de musique traditionnelle de Mohéli 2025</h3>
+                            <div class="video-meta">
+                                <span><i class="far fa-eye"></i> 18K vues</span>
+                                <span><i class="far fa-calendar"></i> 14 Nov</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="side-featured-item">
-                            <div class="side-featured-image">
-                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Article secondaire">
+                    <!-- Video 3 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Vidéo">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
                             </div>
-                            <div class="side-featured-content">
-                                <div class="side-featured-category">SANTÉ</div>
-                                <h4 class="side-featured-title">Campagne de vaccination contre la malaria dans les villages reculés</h4>
-                            </div>
+                            <div class="video-duration">15:20</div>
                         </div>
-
-                        <div class="side-featured-item">
-                            <div class="side-featured-image">
-                                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Article secondaire">
-                            </div>
-                            <div class="side-featured-content">
-                                <div class="side-featured-category">SPORT</div>
-                                <h4 class="side-featured-title">Victoire historique de l'équipe de football de Mohéli au tournoi régional</h4>
+                        <div class="video-content">
+                            <div class="video-category">SPORT</div>
+                            <h3 class="video-title">Victoire historique de l'équipe de Mohéli aux Jeux des Îles</h3>
+                            <div class="video-meta">
+                                <span><i class="far fa-eye"></i> 42K vues</span>
+                                <span><i class="far fa-calendar"></i> 13 Nov</span>
                             </div>
                         </div>
                     </div>

@@ -7,8 +7,8 @@ window.addEventListener('load', () => {
 });
 
 // Sidebar functionality
-const menuToggle = document.getElementById('menuToggle');
-const closeSidebar = document.getElementById('closeSidebar');
+const menuToggles = document.querySelectorAll('.menuToggle');
+const closeSidebarBtns = document.querySelectorAll('.closeSidebar');
 const sidebar = document.getElementById('sidebar');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 
@@ -24,8 +24,17 @@ function closeSidebarFunc() {
     document.body.style.overflow = '';
 }
 
-menuToggle.addEventListener('click', openSidebar);
-closeSidebar.addEventListener('click', closeSidebarFunc);
+// Ajouter l'événement à tous les boutons toggle
+menuToggles.forEach(btn => {
+    btn.addEventListener('click', openSidebar);
+});
+
+// Ajouter l'événement à tous les boutons de fermeture
+closeSidebarBtns.forEach(btn => {
+    btn.addEventListener('click', closeSidebarFunc);
+});
+
+// Fermer si on clique sur l’overlay
 sidebarOverlay.addEventListener('click', closeSidebarFunc);
 
 // Search functionality
@@ -139,41 +148,6 @@ scrollTop.addEventListener('click', () => {
     });
 });
 
-// Animated stats counter
-const statNumbers = document.querySelectorAll('.stat-number');
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = parseInt(entry.target.getAttribute('data-target'));
-            animateValue(entry.target, 0, target, 2000);
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-statNumbers.forEach(stat => {
-    observer.observe(stat);
-});
-
-function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = value.toLocaleString();
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
 // Newsletter form
 const newsletterForm = document.getElementById('newsletterForm');
 newsletterForm.addEventListener('submit', (e) => {
@@ -221,6 +195,80 @@ document.addEventListener('keydown', (e) => {
         searchModal.classList.add('active');
         searchInput.focus();
     }
+});
+
+// Hero Slider Functionality
+const heroSlider = document.getElementById('heroSlider');
+const slides = document.querySelectorAll('.slide');
+const sliderBtns = document.querySelectorAll('.slider-btn');
+const prevBtn = document.querySelector('.prev-slide');
+const nextBtn = document.querySelector('.next-slide');
+
+let currentSlide = 0;
+let slideInterval;
+
+function showSlide(index) {
+    // Masquer toutes les slides
+    slides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+    
+    // Afficher la slide sélectionnée
+    slides[index].classList.add('active');
+    
+    // Mettre à jour les boutons indicateurs
+    sliderBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    sliderBtns[index].classList.add('active');
+    
+    currentSlide = index;
+}
+
+function nextSlide() {
+    let nextIndex = (currentSlide + 1) % slides.length;
+    showSlide(nextIndex);
+}
+
+function prevSlide() {
+    let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prevIndex);
+}
+
+// Événements pour les boutons de navigation
+prevBtn.addEventListener('click', prevSlide);
+nextBtn.addEventListener('click', nextSlide);
+
+// Événements pour les boutons indicateurs
+sliderBtns.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+        showSlide(index);
+        resetSlideInterval();
+    });
+});
+
+// Fonction pour démarrer l'intervalle automatique
+function startSlideInterval() {
+    slideInterval = setInterval(nextSlide, 5000);
+}
+
+// Fonction pour réinitialiser l'intervalle
+function resetSlideInterval() {
+    clearInterval(slideInterval);
+    startSlideInterval();
+}
+
+// Démarrer l'intervalle automatique
+startSlideInterval();
+
+// Pause l'intervalle quand la souris est sur le slider
+heroSlider.addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+});
+
+// Reprend l'intervalle quand la souris quitte le slider
+heroSlider.addEventListener('mouseleave', () => {
+    startSlideInterval();
 });
 
 // Console welcome message

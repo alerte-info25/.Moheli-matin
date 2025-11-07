@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset("css/Front/headerAjust.css") }}">
+
 <!-- Sidebar Overlay -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -15,6 +17,8 @@
             <span>Journal en ligne de Mohéli</span>
         </div>
     </div>
+
+    
 
     <div class="sidebar-nav">
         <a href="{{ route("mohelie.front.acceuil") }}" class="nav-item {{ request()->routeIs("mohelie.front.acceuil") ? "active" : "" }}">
@@ -88,7 +92,7 @@
     <div class="container">
         <div class="header-content">
             <div class="logo-section">
-                <button class="menu-toggle" id="menuToggle">
+                <button class="menu-toggle menuToggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="logo-icon">
@@ -99,6 +103,15 @@
                     <span>Journal en ligne de Mohéli</span>
                 </div>
             </div>
+
+            <!-- Navigation principale dans le header -->
+            <nav class="main-nav">
+                <a href="{{ route("mohelie.front.acceuil") }}" class="nav-link {{ request()->routeIs("mohelie.front.acceuil") ? "active" : "" }}">Accueil</a>
+                <a href="{{ route("mohelie.front.societe") }}" class="nav-link {{ request()->routeIs("mohelie.front.societe") ? "active" : "" }}">Société</a>
+                <a href="{{ route("mohelie.front.politique") }}" class="nav-link {{ request()->routeIs("mohelie.front.politique") ? "active" : "" }}">Politique</a>
+                <a href="{{ route("mohelie.front.economie") }}" class="nav-link {{ request()->routeIs("mohelie.front.economie") ? "active" : "" }}">Économie</a>
+                <a class="nav-link menuToggle" id="menuToggle" style="cursor: pointer;">autres</a>
+            </nav>
 
             <div class="header-actions">
                 <button class="search-btn" id="searchBtn">
