@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use \Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +13,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Exécuter toutes les heures
+        $schedule->command('publicites:update-status')
+            ->hourly()
+            ->withoutOverlapping()
+            ->onSuccess(function () {
+                Log::info('Mise à jour des statuts des publicités réussie');
+            })
+            ->onFailure(function () {
+                Log::error('Échec de la mise à jour des statuts des publicités');
+            });
+
+        // Ou quotidiennement à minuit
+        // $schedule->command('publicites:update-status')->daily();
+
+        // Ou toutes les 30 minutes
+        // $schedule->command('publicites:update-status')->everyThirtyMinutes();
     }
 
     /**

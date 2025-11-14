@@ -69,39 +69,6 @@ document.querySelectorAll('.suggestion-tag').forEach(tag => {
     });
 });
 
-// Login/Logout functionality
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const userInfo = document.getElementById('userInfo');
-const userAvatar = document.getElementById('userAvatar');
-const userName = document.getElementById('userName');
-
-let isLoggedIn = false;
-
-function login() {
-    isLoggedIn = true;
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'flex';
-    userInfo.style.display = 'flex';
-    
-    userName.textContent = 'Jean Dupont';
-    userAvatar.textContent = 'JD';
-    
-    showToast('Connexion réussie', 'Bienvenue Jean Dupont !', 'success');
-}
-
-function logout() {
-    isLoggedIn = false;
-    btnLogin.style.display = 'flex';
-    btnLogout.style.display = 'none';
-    userInfo.style.display = 'none';
-    
-    showToast('Déconnexion', 'À bientôt !', 'info');
-}
-
-btnLogin.addEventListener('click', login);
-btnLogout.addEventListener('click', logout);
-
 // Toast notifications
 function showToast(title, message, type = 'info') {
     const toastContainer = document.getElementById('toastContainer');
@@ -148,55 +115,6 @@ scrollTop.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
-    });
-});
-
-// Video Modal functionality
-const videoModal = document.getElementById('videoModal');
-const closeVideoModal = document.getElementById('closeVideoModal');
-const videoModalIframe = document.getElementById('videoModalIframe');
-
-function openVideoModal(videoId) {
-    videoModalIframe.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
-    `;
-    videoModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeVideoModalFunc() {
-    videoModal.classList.remove('active');
-    videoModalIframe.innerHTML = '';
-    document.body.style.overflow = '';
-}
-
-closeVideoModal.addEventListener('click', closeVideoModalFunc);
-videoModal.addEventListener('click', (e) => {
-    if (e.target === videoModal) {
-        closeVideoModalFunc();
-    }
-});
-
-// Play video buttons
-document.querySelectorAll('.play-button, .play-featured-video').forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const videoId = button.getAttribute('data-video-id') || 'dQw4w9WgXcQ'; // Default video ID
-        openVideoModal(videoId);
-    });
-});
-
-// Video card interactions
-document.querySelectorAll('.video-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-        if (!e.target.closest('.play-button')) {
-            const videoId = 'dQw4w9WgXcQ'; // Default video ID
-            openVideoModal(videoId);
-        }
     });
 });
 

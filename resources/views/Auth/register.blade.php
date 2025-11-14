@@ -14,6 +14,7 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
             <div class="loading-logo">
@@ -30,10 +31,10 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    @include("Front.Partials.search")
+   @include("Front.Partials.search")
 
-    @include("Front.Partials.header")
-
+   @include("Front.Partials.header")
+   
     <!-- Main Content -->
     <main class="main-content">
         <!-- Hero Section -->
@@ -84,7 +85,21 @@
                         </div>
 
                         <div class="registration-body">
-                            <form id="registrationForm">
+
+                            <form id="registrationForm" method="POST" action="{{ route("moheli.register.post") }}">
+
+                                @csrf
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -92,11 +107,13 @@
                                                 <i class="fas fa-asterisk"></i>
                                                 Prénom
                                             </label>
-                                            <input type="text" class="form-control" id="firstName" required>
-                                            <div class="invalid-feedback">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                Veuillez renseigner votre prénom
-                                            </div>
+                                            <input type="text" class="form-control" id="firstName" name="prenom" value="{{ old('prenom') }}" required>
+                                            @error("prenom")
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Veuillez renseigner un prénom valide.
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -105,11 +122,13 @@
                                                 <i class="fas fa-asterisk"></i>
                                                 Nom
                                             </label>
-                                            <input type="text" class="form-control" id="lastName" required>
-                                            <div class="invalid-feedback">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                Veuillez renseigner votre nom
-                                            </div>
+                                            <input type="text" class="form-control" id="lastName" name="nom" value="{{ old('nom') }}" required>
+                                            @error("nom")
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Veuillez renseigner un nom valide.
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -119,19 +138,59 @@
                                         <i class="fas fa-asterisk"></i>
                                         Adresse email
                                     </label>
-                                    <input type="email" class="form-control" id="email" required>
-                                    <div class="invalid-feedback">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        Veuillez renseigner une adresse email valide
-                                    </div>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
+                                    @error("email")
+                                        <div class="invalid-feedback">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            Veuillez renseigner une adresse email valide.
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="phone">
                                         <i class="fas fa-phone"></i>
-                                        Téléphone (optionnel)
+                                        Téléphone
                                     </label>
-                                    <input type="tel" class="form-control" id="phone">
+                                    <input type="tel" class="form-control" id="phone" name="contact" value="{{ old('contact') }}" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="role" class="form-label required">Genre</label>
+                                            <div class="input-group">
+                                                <select name="genre" class="form-control" id="role">
+                                                    <option value="">choisissez votre genre</option>
+                                                    <option value="homme">Homme</option>
+                                                    <option value="Femme">Femme</option>
+                                                    <option value="autres">autres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        @error("genre")
+                                            <div class="invalid-feedback">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                Veuillez sélectionne un genre s'il vous plaît.
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="password" class="form-label">Localité</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="localite" name="localite" placeholder="abidjan" value="{{ old('localite') }}" required>
+                                            </div>
+                                        </div>
+
+                                        @error("localite")
+                                            <div class="invalid-feedback">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                Veuillez sélectionne une localité valide.
+                                            </div>
+                                        @enderror
+
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -141,11 +200,13 @@
                                                 <i class="fas fa-asterisk"></i>
                                                 Mot de passe
                                             </label>
-                                            <input type="password" class="form-control" id="password" required>
-                                            <div class="invalid-feedback">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                Le mot de passe doit contenir au moins 8 caractères
-                                            </div>
+                                            <input type="password" class="form-control" id="password" name="password" required>
+                                            @error("password")
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Le mot de passe doit contenir au moins 8 caractères
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -154,45 +215,35 @@
                                                 <i class="fas fa-asterisk"></i>
                                                 Confirmer le mot de passe
                                             </label>
-                                            <input type="password" class="form-control" id="confirmPassword" required>
-                                            <div class="invalid-feedback">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                Les mots de passe ne correspondent pas
-                                            </div>
+                                            <input type="password" class="form-control" id="confirmPassword" name="password_confirmation" required>
+                                            @error("password_confirmation")
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Les mots de passe ne correspondent pas
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-label" for="location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Localisation (optionnel)
-                                    </label>
-                                    <select class="form-control" id="location">
-                                        <option value="">Sélectionnez votre localisation</option>
-                                        <option value="fomboni">Fomboni</option>
-                                        <option value="nioumachoua">Nioumachoua</option>
-                                        <option value="miringoni">Miringoni</option>
-                                        <option value="other">Autre</option>
-                                    </select>
-                                </div>
-
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="newsletter">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" value="1">
                                     <label class="form-check-label" for="newsletter">
                                         Je souhaite recevoir la newsletter de MOHELI MATIN avec les dernières actualités
                                     </label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <input class="form-check-input" type="checkbox" id="terms" name="terms" value="1" required>
                                     <label class="form-check-label" for="terms">
                                         J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a>
                                     </label>
-                                    <div class="invalid-feedback">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        Vous devez accepter les conditions d'utilisation
-                                    </div>
+                                    @error("terms")
+                                        <div class="invalid-feedback">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            Vous devez accepter les conditions d'utilisation
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <button type="submit" class="btn-register" id="btnRegister">
@@ -201,7 +252,7 @@
                                 </button>
 
                                 <div class="registration-footer">
-                                    <p>Déjà inscrit ? <a href="{{ route("mohelie.login") }}">Connectez-vous ici</a></p>
+                                    <p>Déjà inscrit ? <a href="{{ route("moheli.login") }}">Connectez-vous ici</a></p>
                                 </div>
                             </form>
                         </div>
@@ -210,7 +261,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         @include("Front.Partials.footer")
     </main>
 

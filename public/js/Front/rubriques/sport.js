@@ -84,46 +84,6 @@ sidebarOverlay.addEventListener('click', function() {
     document.body.style.overflow = '';
 });
 
-// User Authentication Simulation
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const userInfo = document.getElementById('userInfo');
-const userName = document.getElementById('userName');
-const userAvatar = document.getElementById('userAvatar');
-
-// Check if user is logged in (simulation)
-const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-if (isLoggedIn) {
-    showUserInfo();
-}
-
-btnLogin.addEventListener('click', function() {
-    // Simulate login
-    localStorage.setItem('isLoggedIn', 'true');
-    showUserInfo();
-    showToast('Connexion réussie', 'Bienvenue sur MOHELI MATIN !', 'success');
-});
-
-btnLogout.addEventListener('click', function() {
-    // Simulate logout
-    localStorage.removeItem('isLoggedIn');
-    hideUserInfo();
-    showToast('Déconnexion réussie', 'À bientôt sur MOHELI MATIN !', 'info');
-});
-
-function showUserInfo() {
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'flex';
-    userInfo.style.display = 'flex';
-}
-
-function hideUserInfo() {
-    btnLogin.style.display = 'flex';
-    btnLogout.style.display = 'none';
-    userInfo.style.display = 'none';
-}
-
 // Toast Notification System
 function showToast(title, message, type = 'info') {
     const toastContainer = document.getElementById('toastContainer');
@@ -152,56 +112,3 @@ function showToast(title, message, type = 'info') {
         }, 300);
     }, 5000);
 }
-
-// Filter Tags
-const filterTags = document.querySelectorAll('.filter-tag');
-filterTags.forEach(tag => {
-    tag.addEventListener('click', function() {
-        filterTags.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Simulate filtering
-        showToast('Filtre appliqué', `Affichage des articles : ${this.textContent}`, 'info');
-    });
-});
-
-// Sort Articles
-const sortSelect = document.getElementById('sortArticles');
-sortSelect.addEventListener('change', function() {
-    const sortText = this.options[this.selectedIndex].text;
-    showToast('Tri appliqué', `Articles triés par : ${sortText}`, 'info');
-});
-
-// Newsletter Form
-const newsletterForm = document.querySelector('.newsletter-form');
-newsletterForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value;
-    showToast('Inscription réussie', `Vous êtes maintenant abonné à notre newsletter avec : ${email}`, 'success');
-    this.reset();
-});
-
-// Article Click Simulation
-const articleCards = document.querySelectorAll('.article-card');
-articleCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-        if (!e.target.closest('.article-stats') && !e.target.closest('.author-avatar')) {
-            const title = this.querySelector('.article-title').textContent;
-            showToast('Article ouvert', `Lecture de : ${title}`, 'info');
-        }
-    });
-});
-
-// Suggestion Tags in Search
-const suggestionTags = document.querySelectorAll('.suggestion-tag');
-suggestionTags.forEach(tag => {
-    tag.addEventListener('click', function() {
-        searchInput.value = this.textContent;
-        showToast('Recherche', `Recherche de : ${this.textContent}`, 'info');
-    });
-});
-
-// Initialize with demo toast
-setTimeout(() => {
-    showToast('Bienvenue', 'Découvrez les actualités sportives de Mohéli !', 'info');
-}, 2000);

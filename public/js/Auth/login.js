@@ -7,8 +7,8 @@ window.addEventListener('load', () => {
 });
 
 // Sidebar functionality
-const menuToggles = document.querySelectorAll('.menuToggle');
-const closeSidebarBtns = document.querySelectorAll('.closeSidebar');
+const menuToggle = document.getElementById('menuToggle');
+const closeSidebar = document.getElementById('closeSidebar');
 const sidebar = document.getElementById('sidebar');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 
@@ -24,21 +24,9 @@ function closeSidebarFunc() {
     document.body.style.overflow = '';
 }
 
-// Ajouter l'événement à tous les boutons toggle
-menuToggles.forEach(btn => {
-    btn.addEventListener('click', openSidebar);
-});
-
-// Ajouter l'événement à tous les boutons de fermeture
-closeSidebarBtns.forEach(btn => {
-    btn.addEventListener('click', closeSidebarFunc);
-});
-
-sidebarOverlay.addEventListener('click', function() {
-    sidebar.classList.remove('active');
-    sidebarOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-});
+menuToggle.addEventListener('click', openSidebar);
+closeSidebar.addEventListener('click', closeSidebarFunc);
+sidebarOverlay.addEventListener('click', closeSidebarFunc);
 
 // Search functionality
 const searchBtn = document.getElementById('searchBtn');

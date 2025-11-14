@@ -18,62 +18,84 @@
         </div>
     </div>
 
-    
-
     <div class="sidebar-nav">
-        <a href="{{ route("mohelie.front.acceuil") }}" class="nav-item {{ request()->routeIs("mohelie.front.acceuil") ? "active" : "" }}">
+        <a href="{{ route('moheli.front.acceuil') }}"
+        class="nav-item {{ request()->routeIs('moheli.front.acceuil') ? 'active' : '' }}">
             <i class="fas fa-home"></i>
             Accueil
         </a>
-        <a href="{{ route("mohelie.front.societe") }}" class="nav-item {{ request()->routeIs("mohelie.front.societe") ? "active" : "" }}">
-            <i class="fas fa-users"></i>
-            Société
-        </a>
-        <a href="{{ route("mohelie.front.sante") }}" class="nav-item {{ request()->routeIs("mohelie.front.sante") ? "active" : "" }}">
-            <i class="fas fa-heartbeat"></i>
-            Santé
-        </a>
-        <a href="{{ route("mohelie.front.culture") }}" class="nav-item {{ request()->routeIs("mohelie.front.culture") ? "active" : "" }}">
-            <i class="fas fa-palette"></i>
-            Culture
-        </a>
-        <a href="{{ route("mohelie.front.opinion") }}" class="nav-item {{ request()->routeIs("mohelie.front.opinion") ? "active" : "" }}">
-            <i class="fas fa-comment-alt"></i>
-            Opinion
-        </a>
-        <a href="{{ route("mohelie.front.politique") }}" class="nav-item {{ request()->routeIs("mohelie.front.politique") ? "active" : "" }}">
-            <i class="fas fa-landmark"></i>
-            Politique
-        </a>
-        <a href="{{ route("mohelie.front.economie") }}" class="nav-item {{ request()->routeIs("mohelie.front.economie") ? "active" : "" }}">
-            <i class="fas fa-chart-line"></i>
-            Économie
-        </a>
-        <a href="{{ route("mohelie.front.sport") }}" class="nav-item {{ request()->routeIs("mohelie.front.sport") ? "active" : "" }}">
-            <i class="fas fa-running"></i>
-            Sport
-        </a>
-        <a href="{{ route("mohelie.front.contact") }}" class="nav-item {{ request()->routeIs("mohelie.front.contact") ? "active" : "" }}">
+
+        @php
+            $rubriques = [
+                'societe'   => ['icon' => 'fas fa-users', 'label' => 'Société'],
+                'sante'     => ['icon' => 'fas fa-heartbeat', 'label' => 'Santé'],
+                'culture'   => ['icon' => 'fas fa-palette', 'label' => 'Culture'],
+                'opinion'   => ['icon' => 'fas fa-comment-alt', 'label' => 'Opinion'],
+                'politique' => ['icon' => 'fas fa-landmark', 'label' => 'Politique'],
+                'economie'  => ['icon' => 'fas fa-chart-line', 'label' => 'Économie'],
+                'sport'     => ['icon' => 'fas fa-running', 'label' => 'Sport'],
+                'communication'     => ['icon' => 'fas fa-comments', 'label' => 'Communication'],
+            ];
+        @endphp
+
+        @foreach($rubriques as $slug => $data)
+            <a href="{{ route('moheli.front.rubrique', ['slug' => $slug]) }}"
+            class="nav-item {{ request()->routeIs('moheli.front.rubrique') && request()->route('slug') === $slug ? 'active' : '' }}">
+                <i class="{{ $data['icon'] }}"></i>
+                {{ $data['label'] }}
+            </a>
+        @endforeach
+
+        <a href="{{ route('moheli.front.contact') }}"
+        class="nav-item {{ request()->routeIs('moheli.front.contact') ? 'active' : '' }}">
             <i class="fas fa-phone-alt"></i>
             Contact
         </a>
-        <a href="{{ route("mohelie.front.publicite") }}" class="nav-item {{ request()->routeIs("mohelie.front.publicite") ? "active" : "" }}">
-            <i class="fas fa-bullhorn"></i>
-            Communication
-        </a>
-        <a href="{{ route("mohelie.front.videos") }}" class="nav-item {{ request()->routeIs("mohelie.front.videos") ? "active" : "" }}">
+        <a href="{{ route('moheli.front.videos') }}"
+        class="nav-item {{ request()->routeIs('moheli.front.videos') ? 'active' : '' }}">
             <i class="fas fa-video"></i>
             Vidéos
         </a>
-        <a href="{{ route("mohelie.front.LastInfos") }}" class="nav-item {{ request()->routeIs("mohelie.front.LastInfos") ? "active" : "" }}">
+        <a href="{{ route('moheli.front.LastInfos') }}"
+        class="nav-item {{ request()->routeIs('moheli.front.LastInfos') ? 'active' : '' }}">
             <i class="fas fa-fire"></i>
             Dernières infos
         </a>
-        <a href="{{ route("mohelie.register") }}" class="nav-item {{ request()->routeIs("mohelie.register") ? "active" : "" }}">
-            <i class="fas fa-user-plus"></i>
-            Inscription
+        <a href="{{ route('moheli.front.communique') }}"
+        class="nav-item {{ request()->routeIs('moheli.front.communique') ? 'active' : '' }}">
+            <i class="fas fa-bullhorn"></i>
+            Communiqués
         </a>
+        @guest
+            <a href="{{ route('moheli.register') }}"
+            class="nav-item {{ request()->routeIs('moheli.register') ? 'active' : '' }}">
+                <i class="fas fa-user-plus"></i>
+                Inscription
+            </a>
+        @endguest
+
+        @auth
+
+            <a href="{{ route("moheli.articles.save") }}"
+                class="nav-item {{ request()->routeIs('moheli.articles.save') ? 'active' : '' }}">
+                <i class="fas fa-user-plus"></i>
+                Articles sauvegardés
+            </a>
+
+            <a class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <form action="{{ route("moheli.logout") }}" method="POST" onclick="return confirm('voulez-vous vous déconnecté ?')">
+                    @csrf
+                    <button class="" type="submit" href="{{ route('moheli.login') }}">
+                        Déconnexion
+                    </button>
+                </form>
+            </a>
+
+        @endauth
+
     </div>
+
 
     <div class="sidebar-footer">
         <div class="social-links">
@@ -106,10 +128,25 @@
 
             <!-- Navigation principale dans le header -->
             <nav class="main-nav">
-                <a href="{{ route("mohelie.front.acceuil") }}" class="nav-link {{ request()->routeIs("mohelie.front.acceuil") ? "active" : "" }}">Accueil</a>
-                <a href="{{ route("mohelie.front.societe") }}" class="nav-link {{ request()->routeIs("mohelie.front.societe") ? "active" : "" }}">Société</a>
-                <a href="{{ route("mohelie.front.politique") }}" class="nav-link {{ request()->routeIs("mohelie.front.politique") ? "active" : "" }}">Politique</a>
-                <a href="{{ route("mohelie.front.economie") }}" class="nav-link {{ request()->routeIs("mohelie.front.economie") ? "active" : "" }}">Économie</a>
+                <a href="{{ route('moheli.front.acceuil') }}"
+                class="nav-link {{ request()->routeIs('moheli.front.acceuil') ? 'active' : '' }}">
+                Accueil
+                </a>
+
+                <a href="{{ route('moheli.front.rubrique', ['slug' => 'societe']) }}"
+                class="nav-link {{ request()->routeIs('moheli.front.rubrique') && request()->route('slug') === 'societe' ? 'active' : '' }}">
+                Société
+                </a>
+
+                <a href="{{ route('moheli.front.rubrique', ['slug' => 'politique']) }}"
+                class="nav-link {{ request()->routeIs('moheli.front.rubrique') && request()->route('slug') === 'politique' ? 'active' : '' }}">
+                Politique
+                </a>
+
+                <a href="{{ route('moheli.front.rubrique', ['slug' => 'economie']) }}"
+                class="nav-link {{ request()->routeIs('moheli.front.rubrique') && request()->route('slug') === 'economie' ? 'active' : '' }}">
+                Économie
+                </a>
                 <a class="nav-link menuToggle" id="menuToggle" style="cursor: pointer;">autres</a>
             </nav>
 
@@ -118,25 +155,65 @@
                     <i class="fas fa-search"></i>
                 </button>
                 
-                <div class="user-info" id="userInfo" style="display: none;">
-                    <div class="user-avatar" id="userAvatar">U</div>
-                    <span id="userName">Utilisateur</span>
-                    <div class="user-dropdown">
-                        <a href="#"><i class="fas fa-user"></i> Mon profil</a>
-                        <a href="#"><i class="fas fa-bookmark"></i> Articles sauvegardés</a>
-                        <a href="#"><i class="fas fa-cog"></i> Paramètres</a>
-                    </div>
-                </div>
+                @auth
+                    @if (auth()->user()->role == "admin" || auth()->user()->role == "redacteur")
+                        <div class="user-info" id="userInfo">
+                            <div class="user-avatar" id="userAvatar">
+
+                                @php
+                                    $user = auth()->user();
+                                    $initiales = strtoupper(substr($user->nom ?? '', 0, 1) . substr($user->prenom ?? '', 0, 1));
+                                @endphp
+
+                                {{ $initiales }}
+
+                            </div>
+                            <span id="userName">
+                                {{ ucfirst($user->nom) }}
+                            </span>
+                            <div class="user-dropdown">
+                                <a href="{{ route("dashboard.articles") }}"><i class="fas fa-user"></i> administration</a>
+                                <form action="{{ route("moheli.logout") }}" method="POST" onclick="return confirm('voulez-vous vous déconnecté ?')">
+                                    @csrf
+                                    <button type="submit" href="{{ route('moheli.login') }}">
+                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        @else
+                            <div class="user-info" id="userInfo">
+                                <div class="user-avatar" id="userAvatar">
+
+                                    @php
+                                        $user = auth()->user();
+                                        $initiales = strtoupper(substr($user->nom ?? '', 0, 1) . substr($user->prenom ?? '', 0, 1));
+                                    @endphp
+
+                                    {{ $initiales }}
+
+                                </div>
+                                <span id="userName">{{ ucfirst($user->nom) }}</span>
+                                <div class="user-dropdown">
+                                    <a href="{{ route("moheli.articles.save") }}"><i class="fas fa-bookmark"></i> Articles sauvegardés</a>
+                                    <form action="{{ route("moheli.logout") }}" method="POST" onclick="return confirm('voulez-vous vous déconnecté ?')">
+                                        @csrf
+                                        <button type="submit" href="{{ route('moheli.login') }}">
+                                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                    @endif
+                @endauth
                 
-                <button class="btn-login" id="btnLogin">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Connexion
-                </button>
-                
-                <button class="btn-logout" id="btnLogout" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Déconnexion
-                </button>
+                @guest
+                    <a href="{{ route("moheli.login") }}" class="btn-login" style="text-decoration: none">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Connexion
+                    </a>
+                @endguest
+
             </div>
         </div>
     </div>

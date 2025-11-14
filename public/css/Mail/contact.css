@@ -1,0 +1,258 @@
+:root {
+    --primary-yellow: #FDB913;
+    --dark-yellow: #E5A50A;
+    --light-yellow: #FED766;
+    --primary-blue: #003DA5;
+    --dark-blue: #002D7A;
+    --light-blue: #0051D5;
+    --primary-red: #E31E24;
+    --dark-red: #C41E3A;
+    --white: #FFFFFF;
+    --off-white: #FAFBFC;
+    --light-gray: #F5F7FA;
+    --medium-gray: #E4E7EB;
+    --text-dark: #1A1A1A;
+    --text-light: #6B7280;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--light-gray) 0%, var(--off-white) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.email-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-top: 6px solid var(--primary-yellow);
+}
+
+.email-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: var(--white);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.email-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-yellow);
+}
+
+.email-logo {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-yellow);
+}
+
+.email-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.email-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.email-content {
+    padding: 2.5rem 2rem;
+}
+
+.message-alert {
+    background: rgba(253, 185, 19, 0.1);
+    border: 2px solid var(--primary-yellow);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.alert-icon {
+    font-size: 2rem;
+    color: var(--primary-yellow);
+    margin-bottom: 0.8rem;
+}
+
+.alert-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+}
+
+.alert-text {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.contact-info {
+    background: var(--light-gray);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.info-section {
+    margin-bottom: 1.5rem;
+}
+
+.info-section:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-label i {
+    color: var(--primary-yellow);
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    padding-left: 1.8rem;
+}
+
+.message-section {
+    background: var(--white);
+    border: 2px solid var(--medium-gray);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.message-content {
+    background: var(--off-white);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary-blue);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+.email-footer {
+    background: var(--light-gray);
+    padding: 2rem;
+    text-align: center;
+    border-top: 2px solid var(--medium-gray);
+}
+
+.footer-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.footer-contact {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-blue);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-item:hover {
+    color: var(--light-blue);
+}
+
+.contact-item i {
+    color: var(--primary-yellow);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .email-container {
+        border-radius: 12px;
+    }
+
+    .email-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .email-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-info {
+        padding: 1.5rem;
+    }
+
+    .email-footer {
+        padding: 1.5rem;
+    }
+
+    .footer-contact {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .email-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .email-title {
+        font-size: 1.5rem;
+    }
+
+    .email-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .contact-info {
+        padding: 1rem;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        padding-left: 1.5rem;
+    }
+}

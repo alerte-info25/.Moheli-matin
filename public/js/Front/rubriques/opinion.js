@@ -61,47 +61,6 @@ searchModal.addEventListener('click', (e) => {
     }
 });
 
-// Suggestion tags
-document.querySelectorAll('.suggestion-tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-        searchInput.value = tag.textContent;
-        searchInput.focus();
-    });
-});
-
-// Login/Logout functionality
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const userInfo = document.getElementById('userInfo');
-const userAvatar = document.getElementById('userAvatar');
-const userName = document.getElementById('userName');
-
-let isLoggedIn = false;
-
-function login() {
-    isLoggedIn = true;
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'flex';
-    userInfo.style.display = 'flex';
-    
-    userName.textContent = 'Jean Dupont';
-    userAvatar.textContent = 'JD';
-    
-    showToast('Connexion réussie', 'Bienvenue Jean Dupont !', 'success');
-}
-
-function logout() {
-    isLoggedIn = false;
-    btnLogin.style.display = 'flex';
-    btnLogout.style.display = 'none';
-    userInfo.style.display = 'none';
-    
-    showToast('Déconnexion', 'À bientôt !', 'info');
-}
-
-btnLogin.addEventListener('click', login);
-btnLogout.addEventListener('click', logout);
-
 // Toast notifications
 function showToast(title, message, type = 'info') {
     const toastContainer = document.getElementById('toastContainer');
@@ -148,61 +107,6 @@ scrollTop.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
-    });
-});
-
-// Filter functionality
-document.querySelectorAll('.filter-tag').forEach(tag => {
-    tag.addEventListener('click', function() {
-        // Remove active class from all tags
-        document.querySelectorAll('.filter-tag').forEach(t => {
-            t.classList.remove('active');
-        });
-        
-        // Add active class to clicked tag
-        this.classList.add('active');
-        
-        const category = this.textContent.toLowerCase();
-        showToast('Filtre appliqué', `Affichage des opinions : ${this.textContent}`, 'info');
-    });
-});
-
-// Sort functionality
-const sortSelect = document.getElementById('sortArticles');
-sortSelect.addEventListener('change', function() {
-    const sortMethod = this.value;
-    let message = '';
-    
-    switch(sortMethod) {
-        case 'newest':
-            message = 'Opinions triées par date (plus récent)';
-            break;
-        case 'popular':
-            message = 'Opinions triées par popularité';
-            break;
-        case 'commented':
-            message = 'Opinions triées par nombre de commentaires';
-            break;
-    }
-    
-    showToast('Tri appliqué', message, 'info');
-});
-
-// Newsletter form
-const newsletterForm = document.querySelector('.newsletter-form');
-newsletterForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value;
-    
-    showToast('Inscription réussie', `Vous recevrez nos opinions à ${email}`, 'success');
-    this.reset();
-});
-
-// Article interactions
-document.querySelectorAll('.article-card').forEach(article => {
-    article.addEventListener('click', function() {
-        const title = this.querySelector('.article-title').textContent;
-        showToast('Opinion sélectionnée', `Ouverture de : ${title}`, 'info');
     });
 });
 

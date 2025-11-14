@@ -9,11 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-   
+    
     <link rel="stylesheet" href="{{ asset("css/Auth/login.css") }}">
 </head>
 <body>
 
+    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
             <div class="loading-logo">
@@ -83,17 +84,38 @@
                         </div>
 
                         <div class="login-body">
-                            <form id="loginForm">
+                            <form id="loginForm" method="POST" action="{{ route("moheli.login.post") }}">
+                                
+                                @csrf
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                @if (session()->has("alert"))
+                                    <div class="alert alert-{{ session("alert")["type"] }}">
+                                        {{ session("alert")["message"] }}
+                                    </div>
+                                @endif
+
                                 <div class="form-group">
                                     <label class="form-label" for="email">
                                         <i class="fas fa-asterisk"></i>
                                         Adresse email
                                     </label>
-                                    <input type="email" class="form-control" id="email" required>
-                                    <div class="invalid-feedback">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        Veuillez renseigner une adresse email valide
-                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" required>
+                                    @error("email")
+                                        <div class="invalid-feedback">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            Veuillez renseigner une adresse email valide
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -101,23 +123,13 @@
                                         <i class="fas fa-asterisk"></i>
                                         Mot de passe
                                     </label>
-                                    <input type="password" class="form-control" id="password" required>
-                                    <div class="invalid-feedback">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        Veuillez renseigner votre mot de passe
-                                    </div>
-                                </div>
-
-                                <div class="form-options">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="remember">
-                                        <label class="form-check-label" for="remember">
-                                            Se souvenir de moi
-                                        </label>
-                                    </div>
-                                    <a href="#" class="forgot-password">
-                                        Mot de passe oublié ?
-                                    </a>
+                                    <input type="password" name="password" class="form-control" id="password" required>
+                                    @error("email")
+                                        <div class="invalid-feedback">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            Veuillez renseigner votre mot de passe
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <button type="submit" class="btn-login" id="btnLoginSubmit">
@@ -126,7 +138,7 @@
                                 </button>
 
                                 <div class="login-footer">
-                                    <p>Pas encore de compte ? <a href="{{ route("mohelie.register") }}">Inscrivez-vous ici</a></p>
+                                    <p>Pas encore de compte ? <a href="{{ route("moheli.register") }}">Inscrivez-vous ici</a></p>
                                 </div>
                             </form>
                         </div>

@@ -69,39 +69,6 @@ document.querySelectorAll('.suggestion-tag').forEach(tag => {
     });
 });
 
-// Login/Logout functionality
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const userInfo = document.getElementById('userInfo');
-const userAvatar = document.getElementById('userAvatar');
-const userName = document.getElementById('userName');
-
-let isLoggedIn = false;
-
-function login() {
-    isLoggedIn = true;
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'flex';
-    userInfo.style.display = 'flex';
-    
-    userName.textContent = 'Jean Dupont';
-    userAvatar.textContent = 'JD';
-    
-    showToast('Connexion réussie', 'Bienvenue Jean Dupont !', 'success');
-}
-
-function logout() {
-    isLoggedIn = false;
-    btnLogin.style.display = 'flex';
-    btnLogout.style.display = 'none';
-    userInfo.style.display = 'none';
-    
-    showToast('Déconnexion', 'À bientôt !', 'info');
-}
-
-btnLogin.addEventListener('click', login);
-btnLogout.addEventListener('click', logout);
-
 // Toast notifications
 function showToast(title, message, type = 'info') {
     const toastContainer = document.getElementById('toastContainer');
@@ -150,74 +117,6 @@ scrollTop.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
-
-// Contact form validation
-const contactForm = document.getElementById('contactForm');
-const btnSend = document.getElementById('btnSend');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Basic validation
-    const firstName = document.getElementById('firstName');
-    const lastName = document.getElementById('lastName');
-    const email = document.getElementById('email');
-    const subject = document.getElementById('subject');
-    const message = document.getElementById('message');
-    
-    let isValid = true;
-    
-    // Reset validation states
-    [firstName, lastName, email, subject, message].forEach(field => {
-        field.classList.remove('is-invalid');
-    });
-    
-    // Validate required fields
-    if (!firstName.value.trim()) {
-        firstName.classList.add('is-invalid');
-        isValid = false;
-    }
-    
-    if (!lastName.value.trim()) {
-        lastName.classList.add('is-invalid');
-        isValid = false;
-    }
-    
-    if (!email.value.trim() || !isValidEmail(email.value)) {
-        email.classList.add('is-invalid');
-        isValid = false;
-    }
-    
-    if (!subject.value) {
-        subject.classList.add('is-invalid');
-        isValid = false;
-    }
-    
-    if (!message.value.trim()) {
-        message.classList.add('is-invalid');
-        isValid =                isValid = false;
-    }
-    
-    if (isValid) {
-        // Simulate form submission
-        btnSend.disabled = true;
-        btnSend.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-        
-        setTimeout(() => {
-            showToast('Message envoyé !', 'Nous vous répondrons dans les plus brefs délais.', 'success');
-            contactForm.reset();
-            btnSend.disabled = false;
-            btnSend.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
-        }, 2000);
-    } else {
-        showToast('Formulaire incomplet', 'Veuillez corriger les erreurs dans le formulaire.', 'info');
-    }
-});
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
 
 // FAQ functionality
 document.querySelectorAll('.faq-question').forEach(question => {
@@ -332,80 +231,6 @@ function validateField(field) {
             break;
     }
 }
-
-// Character counter for message
-const messageField = document.getElementById('message');
-const charCounter = document.createElement('div');
-charCounter.className = 'form-text text-end mt-1';
-charCounter.innerHTML = '<small><span id="charCount">0</span>/500 caractères</small>';
-messageField.parentNode.appendChild(charCounter);
-
-messageField.addEventListener('input', function() {
-    const count = this.value.length;
-    document.getElementById('charCount').textContent = count;
-    
-    if (count > 500) {
-        charCounter.querySelector('small').style.color = 'var(--red)';
-    } else {
-        charCounter.querySelector('small').style.color = '#666';
-    }
-});
-
-// Auto-save form data
-let formAutoSave = {
-    data: {},
-    timer: null,
-    
-    save: function(field, value) {
-        this.data[field] = value;
-        localStorage.setItem('contactFormDraft', JSON.stringify(this.data));
-    },
-    
-    load: function() {
-        const saved = localStorage.getItem('contactFormDraft');
-        if (saved) {
-            this.data = JSON.parse(saved);
-            Object.keys(this.data).forEach(field => {
-                const element = document.getElementById(field);
-                if (element) {
-                    element.value = this.data[field];
-                }
-            });
-            
-            // Show restore notification
-            if (Object.keys(this.data).length > 0) {
-                showToast('Brouillon restauré', 'Vos données précédentes ont été restaurées.', 'info');
-            }
-        }
-    },
-    
-    clear: function() {
-        this.data = {};
-        localStorage.removeItem('contactFormDraft');
-    }
-};
-
-// Load saved form data
-document.addEventListener('DOMContentLoaded', function() {
-    formAutoSave.load();
-});
-
-// Auto-save on input with debounce
-document.querySelectorAll('#contactForm input, #contactForm select, #contactForm textarea').forEach(field => {
-    field.addEventListener('input', function() {
-        clearTimeout(formAutoSave.timer);
-        formAutoSave.timer = setTimeout(() => {
-            formAutoSave.save(this.id, this.value);
-        }, 1000);
-    });
-});
-
-// Clear saved data on successful submission
-contactForm.addEventListener('submit', function() {
-    setTimeout(() => {
-        formAutoSave.clear();
-    }, 3000);
-});
 
 // Enhanced user interactions
 document.querySelectorAll('.contact-method').forEach(method => {

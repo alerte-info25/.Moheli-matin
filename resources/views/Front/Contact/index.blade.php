@@ -29,7 +29,24 @@
     </div>
 
     <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    @if (session()->has("alert"))
+        <!-- Toast Container -->
+        <div class="toast-container" id="toastContainer">
+            <div class="custom-toast toast-{{ session("alert")["type"] }}">
+                <div class="toast-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="toast-content">
+                    <h4>
+                        {{ session("alert")["reason"] }}
+                    </h4>
+                    <p>
+                        {{ session("alert")["message"] }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    @endif
 
     @include("Front.Partials.search")
 
@@ -59,7 +76,7 @@
                         </p>
 
                         <div class="hero-cta">
-                            <a href="{{ route("mohelie.front.acceuil") }}" style="text-decoration: none" class="btn-primary">
+                            <a href="{{ route("moheli.front.acceuil") }}" style="text-decoration: none" class="btn-primary">
                                 <i class="fas fa-home"></i>
                                 Retour à l'accueil
                             </a>
@@ -85,10 +102,6 @@
         <section class="contact-section">
             <div class="container">
                 <div class="contact-container">
-                    <a href="#" class="back-to-home">
-                        <i class="fas fa-arrow-left"></i>
-                        Retour à l'accueil
-                    </a>
 
                     <div class="contact-grid">
                         <!-- Contact Information -->
@@ -178,92 +191,92 @@
                             </div>
 
                             <div class="contact-form-body">
-                                <form id="contactForm">
+                                <form method="POST" action="{{ route('moheli.front.contact.store') }}">
+                                    @csrf
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label" for="firstName">
-                                                    <i class="fas fa-asterisk"></i>
-                                                    Prénom
+                                                <label class="form-label">
+                                                    <i class="fas fa-asterisk"></i> Prénom
                                                 </label>
-                                                <input type="text" class="form-control" id="firstName" required>
-                                                <div class="invalid-feedback">
-                                                    <i class="fas fa-exclamation-circle"></i>
-                                                    Veuillez renseigner votre prénom
-                                                </div>
+                                                <input type="text" name="prenom" class="form-control" value="{{ old('prenom') }}" required>
+                                                @error('prenom')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label" for="lastName">
-                                                    <i class="fas fa-asterisk"></i>
-                                                    Nom
+                                                <label class="form-label">
+                                                    <i class="fas fa-asterisk"></i> Nom
                                                 </label>
-                                                <input type="text" class="form-control" id="lastName" required>
-                                                <div class="invalid-feedback">
-                                                    <i class="fas fa-exclamation-circle"></i>
-                                                    Veuillez renseigner votre nom
-                                                </div>
+                                                <input type="text" name="nom" class="form-control" value="{{ old('nom') }}" required>
+                                                @error('nom')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="email">
-                                            <i class="fas fa-asterisk"></i>
-                                            Adresse email
+                                        <label class="form-label">
+                                            <i class="fas fa-asterisk"></i> Adresse email
                                         </label>
-                                        <input type="email" class="form-control" id="email" required>
-                                        <div class="invalid-feedback">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Veuillez renseigner une adresse email valide
-                                        </div>
+                                        <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                                        @error('email')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="phone">
-                                            <i class="fas fa-phone"></i>
-                                            Téléphone (optionnel)
+                                        <label class="form-label">
+                                            <i class="fas fa-phone"></i> Téléphone
                                         </label>
-                                        <input type="tel" class="form-control" id="phone">
+                                        <input type="tel" name="telephone" class="form-control" value="{{ old('telephone') }}" required>
+                                        @error('telephone')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="subject">
-                                            <i class="fas fa-asterisk"></i>
-                                            Sujet
+                                        <label class="form-label">
+                                            <i class="fas fa-asterisk"></i> Sujet
                                         </label>
-                                        <select class="form-control" id="subject" required>
+                                        <select name="sujet" class="form-control" required>
                                             <option value="">Sélectionnez un sujet</option>
-                                            <option value="info">Demande d'information</option>
-                                            <option value="suggestion">Suggestion</option>
-                                            <option value="signalement">Signalement</option>
-                                            <option value="publicite">Publicité</option>
-                                            <option value="partenariat">Partenariat</option>
-                                            <option value="autre">Autre</option>
+                                            <option value="info" {{ old('sujet') == 'info' ? 'selected' : '' }}>Demande d'information</option>
+                                            <option value="suggestion" {{ old('sujet') == 'suggestion' ? 'selected' : '' }}>Suggestion</option>
+                                            <option value="signalement" {{ old('sujet') == 'signalement' ? 'selected' : '' }}>Signalement</option>
+                                            <option value="publicite" {{ old('sujet') == 'publicite' ? 'selected' : '' }}>Publicité</option>
+                                            <option value="partenariat" {{ old('sujet') == 'partenariat' ? 'selected' : '' }}>Partenariat</option>
+                                            <option value="autre" {{ old('sujet') == 'autre' ? 'selected' : '' }}>Autre</option>
                                         </select>
-                                        <div class="invalid-feedback">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Veuillez sélectionner un sujet
-                                        </div>
+                                        @error('sujet')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="message">
-                                            <i class="fas fa-asterisk"></i>
-                                            Message
+                                        <label class="form-label">
+                                            <i class="fas fa-asterisk"></i> Message
                                         </label>
-                                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                                        <div class="invalid-feedback">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Veuillez écrire votre message
-                                        </div>
+                                        <textarea name="message" rows="5" class="form-control" required>{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <button type="submit" class="btn-send" id="btnSend">
-                                        <i class="fas fa-paper-plane"></i>
-                                        Envoyer le message
+                                    <button type="submit" class="btn-send">
+                                        <i class="fas fa-paper-plane"></i> Envoyer le message
                                     </button>
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success mt-3">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                                 </form>
                             </div>
                         </div>

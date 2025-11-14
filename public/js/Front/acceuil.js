@@ -58,69 +58,6 @@ searchModal.addEventListener('click', (e) => {
     }
 });
 
-// Suggestion tags
-document.querySelectorAll('.suggestion-tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-        searchInput.value = tag.textContent;
-        searchInput.focus();
-    });
-});
-
-// Login/Logout functionality
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const userInfo = document.getElementById('userInfo');
-const userAvatar = document.getElementById('userAvatar');
-const userName = document.getElementById('userName');
-
-let isLoggedIn = false;
-
-function login() {
-    isLoggedIn = true;
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'flex';
-    userInfo.style.display = 'flex';
-    
-    userName.textContent = 'Jean Dupont';
-    userAvatar.textContent = 'JD';
-    
-    showToast('Connexion réussie', 'Bienvenue Jean Dupont !', 'success');
-}
-
-function logout() {
-    isLoggedIn = false;
-    btnLogin.style.display = 'flex';
-    btnLogout.style.display = 'none';
-    userInfo.style.display = 'none';
-    
-    showToast('Déconnexion', 'À bientôt !', 'info');
-}
-
-btnLogin.addEventListener('click', login);
-btnLogout.addEventListener('click', logout);
-
-// Toast notifications
-function showToast(title, message, type = 'info') {
-    const toastContainer = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = `custom-toast toast-${type}`;
-    toast.innerHTML = `
-        <div class="toast-icon">
-            <i class="fas fa-${type === 'success' ? 'check' : 'info'}"></i>
-        </div>
-        <div class="toast-content">
-            <h4>${title}</h4>
-            <p>${message}</p>
-        </div>
-    `;
-    
-    toastContainer.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.remove();
-    }, 5000);
-}
-
 // Header scroll effect
 const mainHeader = document.getElementById('mainHeader');
 window.addEventListener('scroll', () => {
@@ -146,15 +83,6 @@ scrollTop.addEventListener('click', () => {
         top: 0,
         behavior: 'smooth'
     });
-});
-
-// Newsletter form
-const newsletterForm = document.getElementById('newsletterForm');
-newsletterForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = newsletterForm.querySelector('input[type="email"]').value;
-    showToast('Inscription réussie', `Vous êtes maintenant abonné avec l'adresse: ${email}`, 'success');
-    newsletterForm.reset();
 });
 
 // News card interactions
